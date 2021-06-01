@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -7,9 +7,12 @@ import {
 } from 'react-native';
 
 const App = () => {
+
+  const [randomColor, setRandomColor] = useState('rgb(30, 30, 30)')
+  
   return(
     <>
-      <View style={[{backgroundColor: '#000000'}, styles.container]}>
+      <View style={[{backgroundColor: randomColor}, styles.container]}>
         <Text style={styles.text}>Change Background</Text>
       </View>
     </>
