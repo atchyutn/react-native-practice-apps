@@ -1,112 +1,87 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
-  useColorScheme,
   View,
+  Image,
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import DiceOne from './assets/dice1.png';
+import DiceTwo from './assets/dice2.png';
+import DiceThree from './assets/dice3.png';
+import DiceFour from './assets/dice4.png';
+import DiceFive from './assets/dice5.png';
+import DiceSix from './assets/dice6.png';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+const App = () => {
+  const [uri, setUri] = useState(DiceSix);
+  const rollDice = () => {
+    let randomNumber = Math.floor(Math.random() * 6) + 1;
+    console.log('randomNumber', randomNumber);
+    switch (randomNumber) {
+      case 1:
+        setUri(DiceOne);
+        break;
+      case 2:
+        setUri(DiceTwo);
+        break;
+      case 3:
+        setUri(DiceThree);
+        break;
+      case 4:
+        setUri(DiceFour);
+        break;
+      case 5:
+        setUri(DiceFive);
+        break;
+      case 6:
+        setUri(DiceSix);
+        break;
+      default:
+        setUri(DiceOne);
+        break;
+    }
   };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <View style={styles.container}>
+        <Image style={styles.dice} source={uri} ></Image>
+        <TouchableOpacity onPress={rollDice}>
+          <Text style={styles.playButton}>
+            Roll the Dice
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'floralwhite'
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  dice: {
+    height: 200,
+    width: 200
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  playButton: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 40,
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 3,
+    borderRadius: 10,
+    borderColor: 'green',
+    color: 'white',
+    backgroundColor: 'green'
+  }
 });
 
 export default App;
